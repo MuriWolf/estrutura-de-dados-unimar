@@ -1,0 +1,231 @@
+// =============== ensino superior ===============
+#include <stdio.h>
+
+int main()
+{
+  char nome[50];
+  int idade;
+  
+  printf("\nColoque seu nome: ");
+  scanf("%s", nome);
+
+  printf("\nColoque sua idade: ");
+  scanf("%d", &idade);
+  
+  if (idade >= 18)
+  {
+    printf("Apto para ingressar no ensino superior\n");
+  }
+  else 
+  {
+    printf("Não apto para ingressar no ensino superior\n");
+  }
+}
+
+// =============== media notas ===============
+#include <stdio.h>
+
+const int qtde_notas = 5;
+
+int main()
+{
+  int total_notas = 0;
+
+  for (int i = 0; i < qtde_notas; i++)
+  {
+    int nota = 0; 
+    printf("\nDigite a nota %d: ", i+1);
+    scanf("%d", &nota);
+    
+    total_notas += nota;
+  }
+
+  printf("A media de notas é %.1f\n", total_notas / (float) qtde_notas);
+}
+
+// =============== numeros pares ===============
+#include <stdio.h>
+
+int main()
+{
+  int valor = 1;
+  printf("Digite um valor: ");
+  scanf("%d", &valor);
+
+  for (int i = 1; i <= valor; i++)
+  {
+    if (i % 2 == 0)
+    {
+      printf("\n%d", i);
+    }
+  }
+}
+
+// =============== numeros primos ===============
+#include <stdio.h> 
+ 
+ 
+int main() 
+{
+  int numero = 0;
+  printf("Digite um numero: ");
+  scanf("%d", &numero);
+
+ for (int i = 0; i < numero; i++) 
+ { 
+  // casos especiais 
+  if (i < 3) 
+  { 
+   if (i == 2) 
+   { 
+    printf("%d\n", i); 
+   } 
+  }
+  else 
+  {
+    int isPrime = 1;
+    for (int j = 2; j < i; j++) 
+    { 
+      if (i % j == 0)
+      {
+        isPrime = 0;
+        break;
+      }
+    }
+
+    if (isPrime == 1)
+    {
+      printf("%d\n", i);
+    }
+  }
+   
+ } 
+}
+
+// =============== fibonnaci com loop ===============
+#include <stdio.h>
+
+int main()
+{
+    int qtde_loops = 20;
+    int x1 = 1;
+    int x2 = 1;
+    
+    printf("\n%d", x1);
+    printf("\n%d", x2);
+    
+    for (int i = 0; i < qtde_loops; i++)
+    {
+        int copy = x1;
+        x1 = x2;
+        x2 = copy + x2;
+        printf("\n%d", x2);
+    }
+    return 0;
+}
+
+// =============== sequencia trap ===============
+#include <stdio.h>
+
+int main()
+{
+    int qtde_loops = 20;
+    int x1 = 1;
+    int x2 = 1;
+    
+    printf("\n%d", x1);
+    printf("\n%d", x2);
+    
+    for (int i = 0; i < qtde_loops; i++)
+    {
+        int copy = x1;
+        x1 = x2;
+        x2 = copy * x2 + 1;
+        printf("\n%d", x2);
+    }
+    return 0;
+}
+
+// impares
+#include <stdio.h>
+
+int main()
+{
+    int x;
+    printf("Digite um valor inteiro: ");
+    scanf("%d", &x);
+    
+    int qtde_impares = 0;
+    
+    while (qtde_impares < 6)
+    {
+        if (x % 2 == 1)
+        {
+            qtde_impares++;
+            printf("\n%d", x);
+        }
+        x++;
+    }
+    
+    return 0;
+}
+
+//===============  in out =============== 
+#include <stdio.h>
+
+const int range_init = 10;
+const int range_end = 20;
+
+int main()
+{
+    int qtde_leituras = 0;
+    int qtde_in = 0;
+    int qtde_out = 0;
+    scanf("%d", &qtde_leituras);
+    
+    if (qtde_leituras < 1)
+    {
+        return 1;
+    }
+    
+    for (int i = 0; i < qtde_leituras; i++)
+    {
+        int x;
+        scanf("\n%d", &x);
+        if (x >= range_init && x <= range_end)
+        {
+            qtde_in++;
+        }
+        else
+        {
+            qtde_out++;
+        }
+    }
+    
+    printf("\n%d in", qtde_in);
+    printf("\n%d out", qtde_out);
+    
+    return 0;
+}
+
+// =============== resto 2 ===============
+#include <stdio.h>
+
+const int max_value_loop = 10000;
+
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    
+    for (int i = 1; i <= max_value_loop; i++)
+    {
+        if (i % n == 2)
+        {
+            printf("\n%d", i);
+        }
+    }
+    return 0;
+}
+
+

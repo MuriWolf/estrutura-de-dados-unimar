@@ -1,0 +1,201 @@
+============ 1 ============
+#include<stdio.h> 
+ 
+ 
+int getOption() 
+{ 
+ printf("-----------------\n"); 
+ printf("1- Soma\n"); 
+ printf("2- Subtracao\n"); 
+ printf("3- Multiplicacao\n"); 
+ printf("4- Divisao\n"); 
+ printf("0- Sair\n"); 
+ printf("-----------------\n"); 
+ printf("Digite sua opcao: "); 
+ int option; 
+ scanf_s("%i", &option); 
+ return option; 
+} 
+ 
+int sum(int x, int y) 
+{ 
+ return x + y; 
+} 
+ 
+int subtract(int x, int y) 
+{ 
+ return x - y; 
+} 
+ 
+int multiplicate(int x, int y) 
+{ 
+ return x * y; 
+} 
+ 
+int divide(int x, int y) 
+{ 
+ if (y == 0) 
+ { 
+  return 0; 
+ } 
+ return x / y; 
+} 
+ 
+int main() 
+{ 
+ int option; 
+ while (true) 
+ { 
+  int x, y; 
+  option = getOption(); 
+ 
+  if (option == 0) 
+  { 
+   break; 
+  } 
+ 
+  printf("Digite o valor de x: "); 
+  scanf_s("%i", &x); 
+ 
+  printf("\nDigite o valor de y: "); 
+  scanf_s("%i", &y); 
+ 
+  if (option == 1) 
+  { 
+   printf("\n%i\n", sum(x, y)); 
+  } 
+  else if (option == 2) 
+  { 
+   printf("\n%i\n", subtract(x, y)); 
+  } 
+  else if (option == 3) 
+  { 
+   printf("\n%i\n", multiplicate(x, y)); 
+  } 
+  else if (option == 4) 
+  { 
+   printf("\n%i\n", divide(x, y)); 
+  } 
+  else 
+  { 
+   printf("\nNao foi possivel realizar a operacao dada."); 
+  } 
+ } 
+ 
+} 
+ 
+============ 2 ============ 
+#include <stdio.h> 
+#include <string.h> 
+/* 
+Faça um sistema que o usuário cadastra o nome, raça e idade do 
+cachorro, e após isso, o sistema informa esses dados na tela.Obs: 
+Utilizar struct. 
+*/ 
+ 
+typedef struct 
+{ 
+ char nome[50]; 
+ char raca[30]; 
+ int idade; 
+} Cachorro; 
+ 
+int main() 
+{ 
+ Cachorro cachorro1; 
+ 
+ printf("\nDigite o nome do cachorro: "); 
+ scanf_s("%s", cachorro1.nome, sizeof(cachorro1.nome)); 
+ printf("\nDigite a raca do cachorro: "); 
+ scanf_s("%s", cachorro1.raca, sizeof(cachorro1.raca)); 
+ printf("\nDigite a idade do cachorro: "); 
+ scanf_s("%i", &cachorro1.idade, sizeof(cachorro1.idade)); 
+ 
+ printf("O nome do cachorro e: %s, sua raca: e %s, e sua idade: %i", cachorro1.nome, cachorro1.raca, cachorro1.idade); 
+} 
+ 
+============ 3 ============ 
+#include <stdio.h>
+
+typedef struct 
+{
+  char nome[50];
+  char genero[30];
+} Quadrinho;
+
+int main()
+{
+  int qtdeQuadrinhos;
+  printf("Informe a quantidade de quadrinhos: ");
+  scanf("%i", &qtdeQuadrinhos);
+  
+  Quadrinho quadrinhos[qtdeQuadrinhos];
+
+  for (int i = 0; i < qtdeQuadrinhos; i++)
+  {
+    printf("\nDigite o nome do quadrinho %i: ", i+1);
+    scanf("%s", quadrinhos[i].nome);
+
+    printf("Digite o genero do quadrinho %i: ", i+1);
+    scanf("%s", quadrinhos[i].genero); 
+  }
+
+  while (1)
+  {
+    int escolha;
+    printf("\n\nDigite o numero de cadastro para ver as informacoes (1 - %i). \n0 para sair\n", qtdeQuadrinhos);
+    scanf("%i", &escolha);
+    if (escolha == 0)
+    {
+      break;
+    }
+    else if (escolha <= qtdeQuadrinhos && escolha > 0)
+    {
+      printf("\nNome: %s, Genero: %s", quadrinhos[escolha-1].nome, quadrinhos[escolha-1].genero);
+    }
+    else
+    {
+      printf("\nEscolha inválida.");
+    }
+  }
+}
+ 
+============ 4 ============
+#include <stdio.h> 
+ 
+// Faça um algoritmo que mostra todos os valores primos de 0 a 50. 
+ 
+int main() 
+{ 
+ // fazer loop de 0 a 50 
+ // testar se o resto de sua divisao é 0 (exceto para o numero em si e para 2 e 3) 
+ for (int i = 0; i < 50; i++) 
+ { 
+  // casos especiais 
+  if (i < 3) 
+  { 
+   if (i == 2) 
+   { 
+    printf("%d\n", i); 
+   } 
+  }
+  else 
+  {
+    int isPrime = 1;
+    for (int j = 2; j < i; j++) 
+    { 
+      if (i % j == 0)
+      {
+        isPrime = 0;
+        break;
+      }
+    }
+
+    if (isPrime == 1)
+    {
+      printf("%d\n", i);
+    }
+  }
+   
+ } 
+}
