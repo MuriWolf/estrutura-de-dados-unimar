@@ -1,0 +1,65 @@
+// DESAFIO 1
+#include <stdio.h>
+
+int main() {
+    int notas[5];
+    int* pnotas = NULL;
+    pnotas = notas;
+    int soma = 0;
+
+    for (int i = 0; i < 5; i++) {
+      printf("\nDigite a nota %d: ", i+1);
+      scanf("%d", (pnotas + i));
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        soma += *(pnotas + i);
+    }
+    
+    printf("\nA media eh: %.1f\n", soma / 5.0);
+    return 0;
+}
+
+// DESAFIO 2
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int vetor[5] = { 10, 20, 30, 40, 50 };
+    int* pvetor;
+    pvetor = vetor;
+    
+    for (int i = 0; i < ceil(5 / 2.0); i++) {
+        int buffer = *(pvetor + i);
+        *(pvetor + i) = *(pvetor + 4 - i);
+        *(pvetor + 4 - i) = buffer;
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        printf("\n%d", *(pvetor + i));
+    }
+    
+    return 0;
+}
+
+// FIBONACCI
+#include <stdio.h>
+
+int main() {
+  int vetor[10];
+  int* pvetor = NULL;
+  pvetor = vetor;
+
+  *(pvetor) = 1;
+  *(pvetor + 1) = 1;
+
+  for (int i = 2; i < 10; i++) {
+    *(pvetor + i) = *(pvetor + i - 1) + *(pvetor + i - 2);
+  }
+
+  for (int i = 0; i < 10; i++) {
+    printf("%d\n", *(pvetor + i));
+  }
+
+  return 0;
+}
