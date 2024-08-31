@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int main() {
+    int notas[5] = { 10,7,5,9,6 };
+    int* pnotas = NULL;
+    pnotas = notas;
+    int soma = 0;
+    
+    for (int i = 0; i < 5; i++) {
+        soma += *(pnotas + i);
+    }
+    
+    printf("A media eh: %f", soma / 5.0);
+    return 0;
+}
+
+
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int vetor[5] = { 10, 20, 30, 40, 50 };
+    int* pvetor;
+    pvetor = vetor;
+    
+    for (int i = 0; i < ceil(5 / 2.0); i++) {
+        int buffer = *(pvetor + i);
+        *(pvetor + i) = *(pvetor + 4 - i);
+        *(pvetor + 4 - i) = buffer;
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        printf("\n%d", *(pvetor + i));
+    }
+    
+    return 0;
+}
