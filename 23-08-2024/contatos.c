@@ -40,6 +40,15 @@ int main()
     scanf(" %[^\n]s", contatos[i].email);
   }
 
+  for (int i = 0; i < qtde_contatos; i++)
+  {
+    printf("\n\nDados do contato %d\n", i+1);
+    printf("\nNome: %s", contatos[i].nome);
+    printf("\nTelefone: %s", contatos[i].telefone);
+    printf("\nEmail: %s\n", contatos[i].email);
+
+  }
+
   int escolha = 0;
 
   while (1)
