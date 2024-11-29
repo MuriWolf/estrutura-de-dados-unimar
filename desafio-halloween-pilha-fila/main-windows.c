@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-// FEITO COM A AJUDA DE: GUSTAVO MARQUES
-
 typedef struct {
 	 short int nivel;
 } Zumbi;

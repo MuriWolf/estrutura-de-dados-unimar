@@ -22,24 +22,27 @@ typedef struct Node {
 } Node;
 
 char* compare_strings_ascii(char s1[50], char s2[50]) {
-  int i;
-  int len_s1 = strlen(s1);
-  int len_s2 = strlen(s2);
-  int min_len = (len_s1 < len_s2) ? len_s1 : len_s2;
+	int is_strings_length_equal = 0, minor_string_length = 0, i;
+  char* bigger_string;
+  
+  strcpy(bigger_string, strlen(s1) < strlen(s2) ? s2 : s1);
+  minor_string_length = strlen(s1) < strlen(s2) ? (int) strlen(s1) : (int) strlen(s2);
+  is_strings_length_equal = (strlen(s1) == strlen(s2));
 
-	for (i = 0; i < min_len; i++) {
-		if (s1[i] > s2[i]) {
+	for (i = 0; i < minor_string_length; i++) {
+		if ((int) s1[i] > (int) s2[i]) {
 			return s1;
 		} else if ((int) s2[i] > (int) s1[i]) {
 			return s2;
 		}
 	}
 
-  if (len_s1 == len_s2) {
-    return NULL;
-  } else {
-    return (len_s1 < len_s2) ? s2 : s1;
+  if (is_strings_length_equal) {
+    printf("are equal");
+    return "";
   }
+
+	return bigger_string;
 }
 
 Node* insert_on_species_tree(Node* root, Specie* new_specie) {
@@ -53,17 +56,15 @@ Node* insert_on_species_tree(Node* root, Specie* new_specie) {
 		root->right = NULL;
 
     return root;
-	} else {
-    char* bigger_ascii_string = compare_strings_ascii(new_specie->scientific_name, root->value->scientific_name);
+	}
 
-    if (bigger_ascii_string != NULL) {
-      if (strcmp(root->value->scientific_name, bigger_ascii_string) == 0) {
-        root->left = insert_on_species_tree(root->left, new_specie);
-      }
-      else if (strcmp(new_specie->scientific_name, bigger_ascii_string) == 0) {
-        root->right = insert_on_species_tree(root->right, new_specie);
-      }
-    }
+	char* bigger_ascii_string = compare_strings_ascii(new_specie->scientific_name, root->value->scientific_name);
+
+  if (strcmp(root->value->scientific_name, bigger_ascii_string) == 0) {
+    root->left = insert_on_species_tree(root->left, new_specie);
+  }
+  else if (strcmp(new_specie->scientific_name, bigger_ascii_string) == 0) {
+    root->right = insert_on_species_tree(root->right, new_specie);
   }
 
 	return root;
@@ -71,9 +72,10 @@ Node* insert_on_species_tree(Node* root, Specie* new_specie) {
 
 Specie* create_specie() {
 	Specie* new_specie = (Specie*)calloc(1, sizeof(Specie));
+	enum ConservationStatusCodes conservation_status_code;
   int conservation_status_input = 0;
 
-  printf("\nInforme o nome cientifico: ");
+	printf("\nInforme o nome cientifico: ");
 	scanf("%s", new_specie->scientific_name);
 
 	printf("\nInforme o nome popular: ");
@@ -85,16 +87,15 @@ Specie* create_specie() {
 	printf("\nRegiao de ocorrencia: ");
 	scanf("%s", new_specie->occurrence_region);
 
-  printf("got here");
-
 	do {
 		printf("\nStatus de conservacao:\n1- nao ameacada\n2- ameacada\n\n");
 		scanf("%d", &conservation_status_input);
-	} while (conservation_status_input != NONTHREATENED && conservation_status_input != THREATENED);
+	} while (conservation_status_input != 1 && conservation_status_input != 2);
+
 
   printf("got here");
 
-	if (conservation_status_input == NONTHREATENED) {
+	if (conservation_status_code == 1) {
 		strcpy(new_specie->conservation_status, "nao ameacada");
 	}
 	else {
@@ -143,72 +144,6 @@ void show_all_species_post_order(Node* root) {
   }
 }
 
-Node* get_minor_node(Node* root) {
-  if (root->left != NULL) {
-    return get_minor_node(root->left);
-  } else {
-    Node* aux = root;
-    
-    if (root->right != NULL) {
-      root = root->right;
-    } else root->right = NULL;
-
-    return aux;
-
-  }
-}
-
-Node* remove_specie_from_tree(Node* root, char name[50]) {
-  if (root == NULL) return root;
-
-  char* bigger_ascii_string = compare_strings_ascii(name, root->value->scientific_name);
-  
-  // se as strings sao iguais, entao a remocao é feita 
-  if (bigger_ascii_string == NULL) {
-    // Caso folha
-    if (root->left == NULL && root->right == NULL) {
-      free(root);
-      return NULL; // O nó é removido
-    } else if (root->left == NULL) {
-      Node* temp = root->right;
-      free(root);
-      return temp; // Retorna o filho direito
-    } else if (root->right == NULL) {
-      Node* temp = root->left;
-      free(root);
-      return temp; // Retorna o filho esquerdo
-    }
-    
-    // caso dois filhos
-    Node* temp = get_minor_node(root->right);
-    if (temp != NULL) {
-      root->value = temp->value;
-      root->right = remove_specie_from_tree(root->right, temp->value->scientific_name);
-    }
-    
-  } else {
-    if (strcmp(root->value->scientific_name, bigger_ascii_string) == 0) {
-      root->left = remove_specie_from_tree(root->left, name);
-    } else if (strcmp(name, bigger_ascii_string) == 0) {
-      root->right = remove_specie_from_tree(root->right, name);
-    }
-  }
-
-  return root; 
-}
-
-int count_nodes(Node* root) {
-  if (root == NULL) return 0;
-  return 1 + count_nodes(root->left) + count_nodes(root->right);
-}
-
-void export_species_to_array_in_order(Node* root) {
-  if (root == NULL) return;
-
-  export_species_to_array_in_order(root->left);
-  export_species_to_array_in_order(root->right);
-}
-
 int show_menu() {
 	int choice;
 	do {
@@ -217,15 +152,6 @@ int show_menu() {
 	} while (choice < 1 || choice > 7);
 
 	return choice;
-}
-
-void free_tree(Node* root) {
-  if (root != NULL) {
-    free_tree(root->left);
-    free(root->value);
-    free_tree(root->right);
-    free(root);
-  }
 }
 
 int main() {
@@ -257,37 +183,24 @@ int main() {
       }
       break;
     case 3:
-      if (root != NULL) {
-        do {
-          printf("\n\n1. In-order\n2. Pre-order\n3. Post-order\n");
-          scanf("%d", &show_species_choise);
-        } while (show_species_choise < 1 || show_species_choise > 3);
+      do {
+        printf("\n\n1. In-order\n2. Pre-order\n3. Post-order\n");
+        scanf("%d", &show_species_choise);
+      } while (show_species_choise < 1 || show_species_choise > 3);
 
-        printf("\nESPECIES CADASTRADAS");
+      printf("\nESPECIES CADASTRADAS");
 
-        if (show_species_choise == 1) {
-          show_all_species_in_order(root);
-        } else if (show_species_choise == 2) {
-          show_all_species_pre_order(root);
-        } else {
-          show_all_species_post_order(root);
-        }
+      if (show_species_choise == 1) {
+        show_all_species_in_order(root);
+      } else if (show_species_choise == 2) {
+        show_all_species_pre_order(root);
+      } else {
+        show_all_species_post_order(root);
       }
 
       break;
-    case 4:
-      if (root != NULL) {
-        char specie_to_remove[50];
-        printf("\nDigite o nome da especie que deseja deletar: ");
-        scanf("%s", specie_to_remove);
-
-        root = remove_specie_from_tree(root, specie_to_remove);
-      }
-
-      break;
-            
+      
 		case 7:
-      free_tree(root);
 			printf("\nSaindo do programa...\n");
 			return 0;
 		default:
