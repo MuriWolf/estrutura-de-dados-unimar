@@ -285,6 +285,10 @@ int main() {
       }
 
       break;
+    case 5:
+      if (root != NULL) {
+        
+      }
             
 		case 7:
       free_tree(root);
